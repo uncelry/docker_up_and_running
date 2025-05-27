@@ -4,4 +4,4 @@
 - Запуск контейнера - ```docker container run --rm -d -p 80:80 <repository>/<image_name>:<tag>```
 - Посмотреть запущенные контейнеры - ```docker ps```
 - Посмотреть локальные образы - ```docker image list```
-- Выгрузить локальный образ в удаленный репозиторий - ```docker push <repository>/<image_name>:<tag>````
+- Выгрузить локальный образ в удаленный репозиторий - ```docker push <repository>/<image_name>:<tag>```
