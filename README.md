@@ -1,2 +1,2 @@
-# docker_up_and_running
+# Docker Up And Running
 Repository for personal mastering of Docker
