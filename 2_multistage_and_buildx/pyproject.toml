@@ -1,0 +1,14 @@
+[project]
+name = "2-multistage-and-buildx"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.115.12",
+    "py-events>=0.1.2",
+]
+
+#[build-system]
+#requires = ["uv_build>=0.7.8,<0.8.0"]
+#build-backend = "uv_build"
