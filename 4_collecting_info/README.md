@@ -87,3 +87,13 @@ scrape_configs:
 **Надо закрывать выдачу метрик (порт 9090 в данном случае) от внешнего доступа**
 
 Доступ получаем по порту 9090 (для локалки - `localhost:9090`)
+
+`docker container cp 29e3083de0d5:/var/log/alternatives.log 
+/etc/docker_up_and_running/4_collecting_info/logalternatives.log` - скопировать файлы из контейнера на хост (или 
+наоборот)
+
+`docker image save ubuntu:latest -o /etc/docker_up_and_running/4_collecting_info/image_save.tar` - сохранить образ в 
+TAR
+
+`docker image import /etc/docker_up_and_running/4_collecting_info/image_save.tar my_ubuntu:latest` - загрузка образа
+из TAR файла
