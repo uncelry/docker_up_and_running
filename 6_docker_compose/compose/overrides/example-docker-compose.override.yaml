@@ -1,0 +1,5 @@
+services:
+  mongodb:
+    volumes:
+      - "../../mongodb/data/db:/bitnami/mongodb"
+volumes: {}
