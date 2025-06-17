@@ -1,0 +1,55 @@
+services:
+  mongodb:
+    image: spkane/mongo:5.0
+    environment:
+      MONGODB_REPLICA_SET_MODE: primary
+      MONGODB_REPLICA_SET_NAME: rs0
+      MONGODB_PORT_NUMBER: 27017
+      MONGODB_INITIAL_PRIMARY_HOST: mongodb
+      MONGODB_INITIAL_PRIMARY_PORT_NUMBER: 27017
+      MONGODB_ADVERTISED_HOSTNAME: mongodb
+      MONGODB_ENABLE_JOURNAL: "true"
+      ALLOW_EMPTY_PASSWORD: "yes"
+  rocketchat:
+    image: rocketchat/rocket.chat:6.5.2
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.rocketchat.rule: Host(`127.0.0.1`)
+      traefik.http.routers.rocketchat.tls: "false"
+      traefik.http.routers.rocketchat.entrypoints: http
+    environment:
+      ROOT_URL: http://127.0.0.1:3000
+      PORT: 3000
+      MONGO_URL: "mongodb://mongodb:27017/rocketchat?replicaSet=rs0"
+      MONGO_OPLOG_URL: "mongodb://mongodb:27017/local?replicaSet=rs0"
+      DEPLOY_METHOD: docker
+      DEPLOY_PLATFORM: ""
+      REG_TOKEN: ""
+    depends_on:
+      - mongodb
+    ports:
+      - 3000:3000
+  zmachine:
+    image: spkane/zmachine-api:latest
+    depends_on:
+      - rocketchat
+  hubot:
+    image: rocketchat/hubot-rocketchat:latest
+    environment:
+      RESPOND_TO_DM: "true"
+      HUBOT_ALIAS: ". "
+      LISTEN_ON_ALL_PUBLIC: "true"
+      ROCKETCHAT_AUTH: "password"
+      ROCKETCHAT_URL: "rocketchat:3000"
+      ROCKETCHAT_ROOM: ""
+      ROCKETCHAT_USER: "hubot"
+      ROCKETCHAT_PASSWORD: "bot-pw!"
+      BOT_NAME: "bot"
+      EXTERNAL_SCRIPTS: "hubot-help,hubot-diagnostics,hubot-zmachine"
+      HUBOT_ZMACHINE_SERVER: "http://zmachine:80"
+      HUBOT_ZMACHINE_ROOMS: "zmachine"
+      HUBOT_ZMACHINE_OT_PREFIX: "ot"
+    depends_on:
+      - zmachine
+    ports:
+      - 3001:8080
