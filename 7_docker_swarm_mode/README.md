@@ -11,7 +11,7 @@
 
 `docker node ls` - получить список узлов в кластере
 
-`docker swarm join --token SWMTKN-1-3xmt6ho5ycgc98cmssxtxak9kzi838ibasz71fmff3jk0lo6op-61i4px4ixff10st3uik3rzkoy 
+`docker swarm join --token <token>
 172.17.0.1:2377` - добавить рабочие узлы (workers) в кластер swarm. Если передать токен менеджера, то подключим менеджер
 
 `docker swarm join-token manager` - выполнить на любом активном узле, чтобы получить токен для добавления менеджера
